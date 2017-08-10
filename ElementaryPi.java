@@ -22,9 +22,9 @@ public class ElementaryPi extends JPanel {
 
   // executeProgram
   private int executePiProgram(){
+	String data = "Error executing program!";
 	if( (programSelection == -1 ) ||
 	    (numPis == -1 ) ){
-		String data = "Error executing program!";
 		statusLabel.setText(data);
 		return -1;
 	}
@@ -44,7 +44,10 @@ public class ElementaryPi extends JPanel {
 
 	try{
 		final Process p = Runtime.getRuntime().exec(Cmd);
+		System.out.println(Cmd);
 	}catch(IOException e){
+		data = "Error executing program : " + Cmd;
+		statusLabel.setText(data);
 		e.printStackTrace();
 	}
 	
@@ -112,16 +115,15 @@ public class ElementaryPi extends JPanel {
 	String data = "";
 	if( (programList.getSelectedIndex() != -1) &&
 	(coreList.getSelectedIndex() != 1) ){
-  	data = "Executing " + programList.getSelectedIndex() +
-		" on " + coreList.getSelectedIndex() + " cores" + programList.getSelectedIndex();
+  	data = "Executing " + programList.getSelectedValue() +
+		" on " + coreList.getSelectedValue() + " cores";
 		statusLabel.setText(data);
 		programSelection = programList.getSelectedIndex();
-		numPis = coreList.getSelectedIndex();
+		numPis = coreList.getSelectedIndex()+1;
 
-	} }
-
+		}
 	int Rtn = executePiProgram();
-
+	}
 	});
 
 	controlPanel.add(programListScrollPane);
